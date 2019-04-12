@@ -31,10 +31,20 @@ const courseSchema=new mongoose.Schema({
 
 //singular name pascal case for classes
 const Course=mongoose.model('Course',courseSchema);
-//camel case for objects
-const course=new Course({
-    name:'NodeJS Course',
-    author:'Mosh',
-    tags:['node','backend'],
+
+
+async function createCourse(){
+    //camel case for objects
+    const course=new Course({
+    name:'Geds course Course',
+    author:'Ged',
+    tags:['angular','frontend'],
     isPublished:true
-});
+    });
+
+    //async operation which must have the await keyword
+    const result=await course.save();
+    console.log(result);
+}
+
+createCourse();
