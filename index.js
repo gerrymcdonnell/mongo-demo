@@ -47,4 +47,21 @@ async function createCourse(){
     console.log(result);
 }
 
-createCourse();
+async function getCourses(){
+    const courses=await Course
+    .find({
+        author:'Ged',
+        isPublished:true
+    })
+    .limit(5)
+    .sort({
+        name:1 /**asc order -1 is desc */
+    })
+    /**fields to select */
+    .select({name:1,tags:1})
+    console.log(courses);
+}
+
+getCourses();
+
+//createCourse();
