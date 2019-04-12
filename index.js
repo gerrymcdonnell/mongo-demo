@@ -16,9 +16,9 @@ mongoose.connect('mongodb://localhost/'+dbname)
     .then(()=>console.log('Connected to MongoDB...'))
     .catch(err=>console.error('Error connecting',err));
 
-//schema
+//schema with validation
 const courseSchema=new mongoose.Schema({
-    name:String,
+    name:{type:String,required:true},
     author:String,
     tags:[String],
     date:{type:Date,default:Date.now},
@@ -36,15 +36,21 @@ const Course=mongoose.model('Course',courseSchema);
 async function createCourse(){
     //camel case for objects
     const course=new Course({
-    name:'Geds course Course',
-    author:'Ged',
-    tags:['angular','frontend'],
-    isPublished:true
+        //name:'Geds course Course',
+        author:'Ged',
+        tags:['angular','frontend'],
+        isPublished:true,
+        price:15
     });
 
     //async operation which must have the await keyword
-    const result=await course.save();
-    console.log(result);
+    try{
+        const result=await course.save();
+        console.log(result);
+    }
+    catch(ex){
+        console.log('Error: Creating Course: ',ex.message);
+    }
 }
 
 //query mongoDB
@@ -76,6 +82,6 @@ async function getCourses(){
     console.log(courses);
 }
 
-getCourses();
+//getCourses();
 
-//createCourse();
+createCourse();
