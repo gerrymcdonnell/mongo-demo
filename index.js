@@ -47,8 +47,22 @@ async function createCourse(){
     console.log(result);
 }
 
+//query mongoDB
 async function getCourses(){
+
+    /**
+     * comparison operators
+     * eq equal
+     * ne not equal
+     * gt greater than
+     * lt less than
+     * lte less than equal to
+     * in
+     * nin (not in)
+     */
+
     const courses=await Course
+    //.find({price:{$gte:10,$lte:20}})
     .find({
         author:'Ged',
         isPublished:true
